@@ -9,5 +9,10 @@ Rails.application.routes.draw do
    get 'followers' => 'relationships#followers', as: 'followers'
   end
   resources :books
+Chat
+  get 'chat/:id' => 'chats#show', as: 'chat'
+  resources :chats, only: [:create]
+
   get '/search', to: 'search#search'
+ main
 end

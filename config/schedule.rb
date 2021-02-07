@@ -21,11 +21,13 @@
 
 require File.expand_path(File.dirname(__FILE__) + "/environment")
 rails_env = Rails.env.to_sym
+set :runner_command, "rails runner"
 set :environment, rails_env
-set :output, '/log/cron.log'
-every 2.minutes do
+set :output, 'log/cron.log'
+every 1.days do
   begin
   runner "Batch::SendMail.send_mail"
+  #rake 'Batch::SendMail.send_mail'
   rescue => e
     Rails.logger.error("aborted rails runner")
     raise e

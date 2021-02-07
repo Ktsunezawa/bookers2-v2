@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  include JpPrefecture
+  jp_prefecture :prefecture_code
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -41,6 +44,21 @@ main
   validates :name, length: {maximum: 20, minimum: 2}, uniqueness: true
   validates :introduction, length: {maximum: 50}
 
+  validates :post_code, presence: true
+  validates :prefecture_code, presence: true
+  validates :city, presence: true
+  validates :street, presence: true
+
+  def prefecture_name
+    JpPrefecture::Prefecture.find(code: prefecture_code).try(:name)
+  end
+
+  def prefecture_name=(prefecture_name)
+    self.prefecture_code = JpPrefecture::Prefecture.find(name: prefecture_name).code
+  end
+
+
+
   def self.search_for(content, method)
     if method == 'perfect'
       User.where(name: content)
@@ -52,4 +70,5 @@ main
       User.where('name LIKE ?', '%' + content + '%')
     end
   end
+
 end

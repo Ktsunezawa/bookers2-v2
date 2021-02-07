@@ -11,6 +11,9 @@
 # It's strongly recommended that you check this file into your version control system.
 
 
+ActiveRecord::Schema.define(version: 2021_02_04_102554) do
+
+
 ActiveRecord::Schema.define(version: 2021_02_02_043824) do
 
 Chat
@@ -18,6 +21,7 @@ ActiveRecord::Schema.define(version: 2021_02_05_084424) do
 
 ActiveRecord::Schema.define(version: 2021_02_03_033204) do
 main
+
 
 
   create_table "books", force: :cascade do |t|
@@ -78,6 +82,10 @@ main
     t.string "profile_image_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "post_code"
+    t.string "prefecture_code"
+    t.string "city"
+    t.string "street"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

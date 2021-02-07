@@ -4,6 +4,13 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+
+  has_many :books, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  
+  
+
   has_many :books
 Chat
   has_many :user_rooms
@@ -27,6 +34,7 @@ def following?(user)
   followings.include?(user)
 end
 main
+
 
   attachment :profile_image, destroy: false
 
